@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard - INVENTORA</title>
+
+    <!-- Include CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/home.css" th:href="@{/css/home.css}"/>
+    
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-left">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-warehouse"></i>
+                <h1>INVENTORA</h1>
+            </a>
+        </div>
+        <a th:href="@{/logout}" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </a>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h2>Welcome to INVENTORA</h2>
+            <p>Your complete inventory management solution</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <!-- Total Items Card -->
+            <div class="stat-card">
+                <h3>Total Items</h3>
+                <div class="value" th:text="${totalItems}">0</div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>12% from last month</span>
+                </div>
+            </div>
+
+            <!-- Total Customers Card -->
+            <div class="stat-card">
+                <h3>Total Customers</h3>
+                <div class="value" th:text="${totalCustomers}">0</div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>8% from last month</span>
+                </div>
+            </div>
+
+            <!-- Total Suppliers Card -->
+            <div class="stat-card">
+                <h3>Total Suppliers</h3>
+                <div class="value" th:text="${totalSuppliers}">0</div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>5% from last month</span>
+                </div>
+            </div>
+
+            <!-- Total Sales Card -->
+            <div class="stat-card">
+                <h3>Total Sales</h3>
+                <div class="value" th:text="${#numbers.formatDecimal(totalSales, 0, 'COMMA', 2, 'POINT')}">0</div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>15% from last month</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-grid">
+                <a th:href="@{/item-list}" class="action-btn">
+                    <i class="fas fa-boxes"></i>
+                    Manage Items
+                </a>
+                <a th:href="@{/supplier-list}" class="action-btn">
+                    <i class="fas fa-truck"></i>
+                    Manage Suppliers
+                </a>
+                <a th:href="@{/client-list}" class="action-btn">
+                    <i class="fas fa-users"></i>
+                    Manage Customers
+                </a>
+                <a th:href="@{/report}" class="action-btn">
+                    <i class="fas fa-file-pdf"></i>
+                    Generate Reports
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <div class="activity-list">
+                <div class="activity-item" th:each="activity : ${recentActivities}">
+                    <div class="activity-icon">
+                        <i th:class="${activity.icon}"></i>
+                    </div>
+                    <div class="activity-details">
+                        <h4 th:text="${activity.title}">Activity Title</h4>
+                        <p th:text="${activity.description}">Activity Description</p>
+                    </div>
+                    <span class="activity-time" th:text="${activity.time}">Time</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

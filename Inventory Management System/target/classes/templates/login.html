@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - INVENTORA</title>
+    
+    <!-- Include CSS stylesheet -->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/login.css" th:href="@{/css/login.css}"/>
+    
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>INVENTORA</h1>
+    </header>
+
+    <!-- Login Form Container -->
+    <div class="login-form">
+        <div class="form-container">
+            <h2>Welcome Back</h2>
+            
+            <!-- Login Form -->
+            <form th:action="@{/login}" method="post">
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="email" class="input-field" id="username" name="username" 
+                           placeholder="Enter your email" required autofocus>
+                </div>
+                
+                <!-- Password Input -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="input-field" id="password" name="password" 
+                           placeholder="Enter your password" required>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Login</button>
+                
+                <!-- Registration Link -->
+                <p>Don't have an account? <a href="/registration" th:href="@{/registration}">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Error Message for Invalid Login -->
+    <div th:if="${param.error}">
+        <div class="alert-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Invalid username or password</span>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Message -->
+    <div th:if="${param.logout}">
+        <div class="alert-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>You have been logged out successfully</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>View Item - INVENTORA</title>
+
+    <!-- Include CSS stylesheets -->
+    <link rel="stylesheet" type="text/css" href="/css/view-item.css" th:href="@{/css/view-item.css}"/>
+    <link rel="stylesheet" type="text/css" href="/css/nav.css" th:href="@{/css/nav.css}"/>
+    
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    
+    <!-- Include Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="nav">
+        <ul>
+            <li>
+                <a th:href="@{/}">DASHBOARD</a>
+            </li>
+            <li class="selected">
+                <a th:href="@{/item-list}">ITEMS</a>
+            </li>
+            <li>
+                <a th:href="@{/supplier-list}">SUPPLIERS</a>
+            </li>
+            <li>
+                <a th:href="@{/client-list}">CUSTOMERS</a>
+            </li>
+        </ul>
+        <h1>INVENTORA</h1>
+        <div>
+            <a th:href="@{/logout}" class="logOut_btn">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="container" th:object="${item}">
+        <!-- Back Button -->
+        <a th:href="@{/item-list}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Items
+        </a>
+
+        <!-- Item Details Card -->
+        <div class="item-card">
+            <h1 th:text="${item.itemName}">Item Name</h1>
+            
+            <div class="item-details">
+                <div class="detail-group">
+                    <h3>Description</h3>
+                    <p th:text="${item.description}">Item description</p>
+                </div>
+
+                <div class="detail-group">
+                    <h3>Item Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Item ID</span>
+                            <span class="value" th:text="${item.itemId}">N/A</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Supplier</span>
+                            <span class="value" th:text="${item.supplier.supplierName}">N/A</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Buy Price</span>
+                            <span class="value" th:text="${#numbers.formatDecimal(item.buyPrice, 0, 'COMMA', 2, 'POINT')}">0.00</span> INR
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Sell Price</span>
+                            <span class="value" th:text="${#numbers.formatDecimal(item.sellPrice, 0, 'COMMA', 2, 'POINT')}">0.00</span> INR
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Quantity</span>
+                            <span class="value" th:text="${item.quantity}">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a th:href="@{/showItemForUpdate/{id}(id=${item.itemId})}" class="button update">
+                    <i class="fas fa-edit"></i>
+                    Update Item
+                </a>
+                <a th:href="@{/deleteItem/{id}(id=${item.itemId})}" class="button delete">
+                    <i class="fas fa-trash"></i>
+                    Delete Item
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
